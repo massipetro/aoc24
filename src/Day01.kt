@@ -1,18 +1,45 @@
+import kotlin.math.abs
+
 fun main() {
     fun part1(input: List<String>): Int {
-        return input.size
+        val twoLists = input.map {
+            val (first, second) = it.split("   ")
+            first to second
+        }
+        println(twoLists)
+
+        val firstList = twoLists.map { it.first.toInt() }.sorted()
+        val secondList = twoLists.map { it.second.toInt() }.sorted()
+
+        val pairedList = firstList.zip(secondList)
+        val distances = pairedList.map { (first, second) -> abs(first - second) }
+        println(distances)
+
+        val distancesSum = distances.sumOf { it }
+
+        return distancesSum
     }
 
     fun part2(input: List<String>): Int {
-        return input.size
+        val twoLists = input.map {
+            val (first, second) = it.split("   ")
+            first to second
+        }
+        println(twoLists)
+
+        val firstList = twoLists.map { it.first.toInt() }.sorted()
+        val secondList = twoLists.map { it.second.toInt() }.sorted()
+
+        val pairedList = firstList.zip(secondList)
+        val distances = pairedList.map { (first, second) -> abs(first - second) }
+        println(distances)
+
+        val similarityScore = pairedList.sumOf { (first, _) ->
+            first * secondList.count { it == first }
+        }
+
+        return similarityScore
     }
-
-    // Test if implementation meets criteria from the description, like:
-    check(part1(listOf("test_input")) == 1)
-
-    // Or read a large test input from the `src/Day01_test.txt` file:
-    val testInput = readInput("Day01_test")
-    check(part1(testInput) == 1)
 
     // Read the input from the `src/Day01.txt` file.
     val input = readInput("Day01")
